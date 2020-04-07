@@ -7,17 +7,65 @@
         input[type=number] { text-align:right; width: 80px }
     </style>
     <script>
-        const data = [
-            {name: 'kroki (1000)', bonus: 1000},
-            {name: 'kółko AB', bonus: 50},
-            {name: 'drążek', bonus: 80},
-            {name: 'pompki', bonus: 40},
-            {name: 'drążek z taśmą', bonus: 50},
-            {name: '10 przysiadów', bonus: 150},
-            {name: '30 przysiadów', bonus: 500},
-            {name: 'bieganie (km)', bonus: 1000},
-            {name: 'workout', bonus: 4000},
-        ];  
+        // Source: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+        let urlParams = {};
+        (window.onpopstate = function () {
+            let match,
+                pl = /\+/g,  // Regex for replacing addition symbol with a space
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) {
+                    return decodeURIComponent(s.replace(pl, " "));
+                },
+                query = window.location.search.substring(1);
+
+            while (match = search.exec(query)) {
+                if (decode(match[1]) in urlParams) {
+                    if (!Array.isArray(urlParams[decode(match[1])])) {
+                        urlParams[decode(match[1])] = [urlParams[decode(match[1])]];
+                    }
+                    urlParams[decode(match[1])].push(decode(match[2]));
+                } else {
+                    urlParams[decode(match[1])] = decode(match[2]);
+                }
+            }
+            data = getUserData();
+        })();
+
+        function getUserData() {
+            const dataLists = {
+                dominik: [
+                    {name: 'kroki (1000)', bonus: 1000},
+                    {name: 'kółko AB', bonus: 50},
+                    {name: 'drążek', bonus: 80},
+                    {name: 'pompki', bonus: 40},
+                    {name: 'drążek z taśmą', bonus: 50},
+                    {name: '10 przysiadów', bonus: 150},
+                    {name: '30 przysiadów', bonus: 500},
+                    {name: 'bieganie (km)', bonus: 1000},
+                    {name: 'workout', bonus: 4000},
+                ],
+                jacek: [
+                    {name: 'kroki (1000)', bonus: 625},
+                    {name: 'trampolina (1 min)', bonus: 50},
+                    {name: '10 przysiadów', bonus: 150},
+                    {name: '30 przysiadów', bonus: 500},
+                    {name: 'bieganie (km)', bonus: 2000},
+                ]
+            };
+            defaultUser = 'dominik'
+
+
+            if (urlParams.user === undefined) {
+                return dataLists[defaultUser];
+            }
+
+            if (dataLists[urlParams['user'].toLowerCase()] === undefined) {
+                return dataLists[defaultUser];
+            }
+
+            return dataLists[urlParams['user'].toLowerCase()];
+
+        }
 
         function get_int(id) {
             if (document.getElementById(id).value === undefined) {
@@ -102,6 +150,11 @@
     </table>
     <h2> Razem: <span id="total_points">0</span> </h2>
 
+    <p><strong>Predefiniowane listy użytkowników</strong></p>
+    <ul>
+        <li><a href="?user=Jacek">Jacek</a></li>
+        <li><a href="?user=Dominik">Dominik</a></li>
+    </ul>
 
 </body>
 </html>
