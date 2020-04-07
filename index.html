@@ -2,16 +2,23 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        input[type=number] { text-align:right }
-        table, td {
-            border: 1px solid black;
-        }
-        td {
-            padding: 5px;
-        }
+        input[type=number] { text-align:right; width: 80px }
     </style>
     <script>
+        const data = [
+            {name: 'kroki (1000)', bonus: 1000},
+            {name: 'kółko AB', bonus: 50},
+            {name: 'drążek', bonus: 80},
+            {name: 'pompki', bonus: 40},
+            {name: 'drążek z taśmą', bonus: 50},
+            {name: '10 przysiadów', bonus: 150},
+            {name: '30 przysiadów', bonus: 500},
+            {name: 'bieganie (km)', bonus: 1000},
+            {name: 'workout', bonus: 4000},
+        ];  
+
         function get_int(id) {
             if (document.getElementById(id).value === undefined) {
                 return parseInt(document.getElementById(id).innerHTML)
@@ -21,14 +28,13 @@
         }
 
         function refresh_total() {
-            let num_of_exs = 8;
             let bonus_id_name = 0;
             let count_id_name = 0;
             let total_count = 0;
 
-            for (let i=1; i<=num_of_exs; i++) {
-                bonus_id_name = 'ex_0'+i+'_bonus';
-                count_id_name = 'ex_0'+i+'_count';
+            for (let i=1; i <= data.length; i++) {
+                bonus_id_name = 'ex_'+i+'_bonus';
+                count_id_name = 'ex_'+i+'_count';
                 total_count += get_int(bonus_id_name) * get_int(count_id_name); 
             }
             document.getElementById('total_points').innerHTML = total_count;
@@ -50,6 +56,24 @@
             return today;
         }
 
+        document.addEventListener("DOMContentLoaded", () => {
+            const template = document.getElementById("excercise-template");
+            const table = document.getElementById("excercise-table");
+
+            for (let i in data) {
+                j = parseInt(i)+1;
+                const instance = document.importNode(template.content, true);
+
+                instance.getElementById("ex_name").textContent = data[i].name;
+                instance.getElementById("ex_name").id = "ex_"+j+"_name";
+                instance.getElementById("ex_bonus").textContent = data[i].bonus;
+                instance.getElementById("ex_bonus").id = "ex_"+j+"_bonus";
+                
+                instance.getElementById("ex_count").id = "ex_"+j+"_count";
+                table.appendChild(instance);
+            }
+        });
+
         window.onbeforeunload = function(event) {
             return confirm("Confirm refresh");
         };
@@ -57,55 +81,24 @@
 </head>
 
 <body>
+
+    <template id="excercise-template">
+        <tr>
+            <td id="ex_name"></td>
+            <td id="ex_bonus"></td> 
+            <td>
+                <input id="ex_count" type="number" value="0" class="ex_count" onchange="refresh_total()">
+            </td>
+            <td class="action">
+                <button id="action" onclick="bump(this.parentNode.parentNode.querySelector('.ex_count').id)">bump!</button>
+            </td>
+        </tr>
+    </template>
+
     <h1 id="date_header"><script>document.write(today())</script></h1>
 
 
-    <table>
-        <tr>
-            <td>kroki (1000)</td>
-            <td id="ex_01_bonus">1000</td> 
-            <td>
-                <input type="number" value="0" class="ex_count" id="ex_01_count" size="6" maxlength="5" onchange="refresh_total()">
-            </td>
-            <td>
-                <button onclick="bump('ex_01_count')">bump!</button>
-            </td>
-        </tr>
-        <tr> 
-            <td>kółko AB</td> <td id="ex_02_bonus">50</td> 
-            <td><input type="number" value="0" class="ex_count" id="ex_02_count" maxlength="5" onchange="refresh_total()"></td> 
-            <td><button onclick="bump('ex_02_count')">bump!</button></td> 
-        </tr>
-        <tr> 
-            <td>drążek</td> <td id="ex_03_bonus">80</td> 
-            <td><input type="number" value="0" class="ex_count" id="ex_03_count" maxlength="5" onchange="refresh_total()"></td> 
-            <td><button onclick="bump('ex_03_count')">bump!</button></td> 
-        </tr>
-        <tr> 
-            <td>drążek z taśmą</td> <td id="ex_04_bonus">50</td> 
-            <td><input type="number" value="0" class="ex_count" id="ex_04_count" maxlength="5" onchange="refresh_total()"></td> 
-            <td><button onclick="bump('ex_04_count')">bump!</button></td> 
-        </tr>
-        <tr> 
-            <td>10 przysiadów</td> <td id="ex_05_bonus">150</td> 
-            <td><input type="number" value="0" class="ex_count" id="ex_05_count" maxlength="5" onchange="refresh_total()"></td> 
-            <td><button onclick="bump('ex_05_count')">bump!</button></td> 
-        </tr>
-        <tr> 
-            <td>30 przysiadów</td> <td id="ex_06_bonus">500</td> 
-            <td><input type="number" value="0" class="ex_count" id="ex_06_count" maxlength="5" onchange="refresh_total()"></td> 
-            <td><button onclick="bump('ex_06_count')">bump!</button></td> 
-        </tr>
-        <tr> 
-            <td>bieganie</td> <td id="ex_07_bonus">1000</td> 
-            <td><input type="number" value="0" class="ex_count" id="ex_07_count" maxlength="5" onchange="refresh_total()"></td> 
-            <td><button onclick="bump('ex_07_count')">bump!</button></td> 
-        </tr>
-        <tr> 
-            <td>workout z appki</td> <td id="ex_08_bonus">5000</td> 
-            <td><input type="number" value="0" class="ex_count" id="ex_08_count" maxlength="5" onchange="refresh_total()"></td> 
-            <td><button onclick="bump('ex_08_count')">bump!</button></td> 
-        </tr>
+    <table id="excercise-table" class="w3-table w3-bordered w3-striped">
     </table>
     <h2> Razem: <span id="total_points">0</span> </h2>
 
