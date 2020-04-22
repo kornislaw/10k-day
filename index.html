@@ -36,9 +36,10 @@
                 dominik: [
                     {name: 'kroki (1000)', bonus: 1000},
                     {name: 'kółko AB', bonus: 50},
-                    {name: 'drążek', bonus: 80},
                     {name: 'pompki', bonus: 40},
                     {name: 'drążek z taśmą', bonus: 50},
+                    {name: 'drążek', bonus: 80},
+                    {name: 'ciężarki (seria 24x2)', bonus: 400},
                     {name: '10 przysiadów', bonus: 150},
                     {name: '30 przysiadów', bonus: 500},
                     {name: 'bieganie (km)', bonus: 1000},
@@ -104,6 +105,7 @@
             return today;
         }
 
+        // Source / inspired by: https://www.blustemy.io/using-the-html-template-element/
         document.addEventListener("DOMContentLoaded", () => {
             const template = document.getElementById("excercise-template");
             const table = document.getElementById("excercise-table");
