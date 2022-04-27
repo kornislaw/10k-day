@@ -21,9 +21,10 @@
     <template id="excercise-template">
         <tr>
             <td id="ex_name"></td>
-            <td id="ex_bonus"></td> 
+            <td id="ex_bonus" class="text-end"></td>
             <td>
-                <label class="label_count" for="ex_count">powtórzenia</label><input id="ex_count" type="number" value="0" class="ex_count" onchange="refresh_total()">
+                <label class="label_count" for="ex_count">powtórzenia</label>
+                <input id="ex_count" type="number" value="0" class="ex_count" onchange="refresh_total()">
             </td>
             <td class="action">
                 <button class="btn btn-primary" id="action" onclick="bump(this.parentNode.parentNode.querySelector('.ex_count').id)">bump!</button>
@@ -34,7 +35,7 @@
     <h1 id="date_header"><script>document.write(today())</script></h1>
 
 
-    <table id="excercise-table" class="table"><tbody>
+    <table id="excercise-table" class="table table-striped"><tbody>
 
     </tbody>
     </table>

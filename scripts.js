@@ -39,6 +39,7 @@ function getUserData() {
             {name: 'bieganie (km)', bonus: 1000},
             {name: 'rower (km)', bonus: 500},
             {name: 'workout', bonus: 4000},
+            {name: 'inne ekstra', bonus: 1},
         ],
         jacek: [
             {name: 'kroki (1000)', bonus: 625},
@@ -81,7 +82,7 @@ function refresh_total() {
         count_id_name = 'ex_'+i+'_count';
         total_count += get_int(bonus_id_name) * get_int(count_id_name);
     }
-    document.getElementById('total_points').innerHTML = total_count;
+    document.getElementById('total_points').innerHTML = total_count.toLocaleString('pl-PL');
 }
 
 function bump(id) {
