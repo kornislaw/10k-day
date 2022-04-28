@@ -104,7 +104,7 @@ function today() {
 // Source / inspired by: https://www.blustemy.io/using-the-html-template-element/
 document.addEventListener("DOMContentLoaded", () => {
     const template = document.getElementById("excercise-template");
-    const table = document.querySelector("#excercise-table > tbody");
+    const ul = document.querySelector("#cards-group");
 
     for (let i in data) {
         j = parseInt(i)+1;
@@ -116,10 +116,11 @@ document.addEventListener("DOMContentLoaded", () => {
         instance.getElementById("ex_bonus").id = "ex_"+j+"_bonus";
 
         instance.getElementById("ex_count").id = "ex_"+j+"_count";
-        table.appendChild(instance);
+        console.log(instance);
+        ul.appendChild(instance);
     }
 });
 
 window.onbeforeunload = function() {
-    return confirm("Confirm refresh");
+    //return confirm("Confirm refresh");
 };

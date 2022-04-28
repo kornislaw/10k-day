@@ -1,0 +1,10 @@
+input[type=number] { text-align:right; width: 80px }
+label.label_count { display: none; }
+.card {
+    border: none;
+}
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.125)
+}
+
