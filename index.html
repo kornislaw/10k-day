@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="styles.css" rel="stylesheet">
+  <title>Hello, world!</title>
+</head>
+<body>
+<div class="container">
+  <template id="excercise-template">
+    <div class="list-group-item d-flex row">
+      <div id="ex_name" class="col col-5"></div>
+      <div id="ex_bonus" class="col col-2 text-end"></div>
+      <div class="col col-3">
+        <label class="label_count" for="ex_count">powtórzenia</label>
+        <input id="ex_count" type="number" value="0" class="ex_count" onchange="refresh_total()">
+      </div>
+      <div class="action col col-2">
+        <button class="btn btn-primary" id="action" onclick="bump(this.parentNode.parentNode.querySelector('.ex_count').id)">bump!</button>
+      </div>
+    </div>
+  </template>
+
+  <h1 id="date_header"><script>document.write(today())</script></h1>
+
+
+  <div class="card">
+    <div id="cards-group" class="list-group">
+    </div>
+  </div>
+
+
+  <h2> Razem: <span id="total_points">0</span> </h2>
+
+  <p><strong>Predefiniowane listy użytkowników</strong></p>
+  <ul>
+    <li><a href="?user=Jacek">Jacek</a></li>
+    <li><a href="?user=Dominik">Dominik</a></li>
+  </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="scripts.js"></script>
+
+</body>
+</html>
